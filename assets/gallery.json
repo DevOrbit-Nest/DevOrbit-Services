@@ -1,8 +1,8 @@
 {
   "web": [
-    {"src":"assets/webapp/Homepage.jpg","caption":"Home Page"},
-    {"src":"assets/webapp/ServicesPage.jpg","caption":"Services Page"}
-    {"src":"assets/vb/DescriptionPage.jpg","caption":"Description Page"}
+    {"src":"https://raw.githubusercontent.com/DevOrbit-Nest/DevOrbit-Services/main/assets/webapp/Homepage.jpg","caption":"Home Page"},
+    {"src":"https://raw.githubusercontent.com/DevOrbit-Nest/DevOrbit-Services/main/assets/webapp/ServicesPage.jpg","caption":"Services Page"}
+    {"src":"https://raw.githubusercontent.com/DevOrbit-Nest/DevOrbit-Services/main/assets/webapp/DescriptionPage.jpg","caption":"Description Page"}
   ],
   "desktop": [
     {"src":"assets/vb/1.jpg","caption":"Visual basic sample Page"}
@@ -14,3 +14,4 @@
     {"src":"assets/chatbot/chatbotSample2.jpg","caption":"Chatbot Sample"}
   ]
 }
+
