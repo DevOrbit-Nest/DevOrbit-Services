@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>DevOrbit — Request a Project</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta name="description" content="DevOrbit - Order web & desktop projects. Submit your request and we'll contact you on WhatsApp." />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <meta name="description" content="DevOrbit — Order web and desktop projects. Transparent pricing, WhatsApp onboarding, documentation and support.">
   <style>
-    :root{--bg:#071527;--card:#071822;--accent1:#06b6d4;--accent2:#7c3aed;--muted:#9fb3bd;--glass:rgba(255,255,255,0.03);--radius:14px;--max:1100px}
+    :root{
+      --bg:#04111a; --card:#071822; --muted:#9fb3bd; --accent1:#06b6d4; --accent2:#7c3aed;
+      --glass: rgba(255,255,255,0.03); --radius:12px; --max:1100px;
+    }
     *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,#04111a 0%,#071627 100%);color:#e7f3f6;font-family:Inter,system-ui,Arial,-apple-system;}
-    .container{max-width:var(--max);margin:28px auto;padding:20px}
+    body{font-family:Inter,system-ui,Arial; margin:0; color:#e7f3f6; background:linear-gradient(180deg,#02121a,#041827); -webkit-font-smoothing:antialiased;}
+    .container{max-width:var(--max); margin:28px auto; padding:20px}
     header{display:flex;align-items:center;justify-content:space-between;gap:12px}
     .brand{display:flex;gap:14px;align-items:center}
     .logo{width:64px;height:64px;border-radius:14px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#021;letter-spacing:1px;font-size:20px}
@@ -20,10 +21,9 @@
     p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
     .grid{display:grid;grid-template-columns:1fr 420px;gap:26px;margin-top:20px}
     .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
-    .hero h2{margin:0 0 8px;font-size:20px}
     .muted{color:var(--muted);font-size:13px}
 
-    /* options + gallery layout */
+    /* Options + gallery */
     .options-gallery{display:grid;grid-template-columns:1fr 340px;gap:16px}
     .options{display:flex;flex-direction:column;gap:10px}
     .option-btn{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border-radius:10px;background:var(--glass);border:1px solid rgba(255,255,255,0.03);cursor:pointer}
@@ -32,6 +32,9 @@
     .price{font-weight:700}
     .pkg-desc{color:var(--muted);font-size:13px;margin-top:6px}
 
+    /* clearer documentation tile */
+    .doc-tile { border:2px solid rgba(255,255,255,0.06); box-shadow: 0 6px 18px rgba(0,0,0,0.35); padding:10px; border-radius:10px; background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent); }
+
     .gallery{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:10px;padding:10px;height:300px;display:flex;flex-direction:column;gap:8px}
     .gallery-main{flex:1;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#03151c}
     .gallery-main img{max-width:100%;max-height:100%;object-fit:cover;border-radius:6px}
@@ -39,16 +42,32 @@
     .thumbs img{height:60px;border-radius:8px;cursor:pointer;border:2px solid transparent}
     .thumbs img.active{border-color:var(--accent1)}
 
+    /* seal */
+    .urgency {display:flex;align-items:center;gap:16px;margin-top:12px}
+    .urgency p {margin:0}
+    .seal {width:96px;height:96px;position:relative}
+    .seal svg {width:96px;height:96px;display:block}
+    .seal .percent {position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;font-weight:800;color:#e7f3f6}
+    /* wave will move horizontally and vertically by CSS transforms set via JS */
+    .wave { transform-origin:center bottom; }
+
+    /* small bubble animation (decorative) */
+    .bubble { position:absolute; border-radius:999px; opacity:0.8; animation:rise 4s linear infinite; background:rgba(255,255,255,0.06); }
+    @keyframes rise {
+      0% { transform: translateY(50px) scale(0.6); opacity:0.6 }
+      100% { transform: translateY(-120px) scale(1); opacity:0.05 }
+    }
+
     /* form */
     form label{display:block;font-size:13px;margin-bottom:6px}
     input[type=text], textarea, select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
     textarea{min-height:100px}
-    .row{display:flex;gap:8px}
     .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#022;font-weight:700;border:none;cursor:pointer}
     .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--accent1)}
     .summary{padding:12px;border-radius:8px;background:linear-gradient(180deg, rgba(6,182,212,0.03), transparent);border:1px solid rgba(6,182,212,0.05)}
 
-    .logo-svg{width:56px;height:56px}
+    .special-box{border:2px dashed rgba(255,255,255,0.06);padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);}
+
     footer{margin-top:20px;color:var(--muted);font-size:13px}
     @media (max-width:980px){.grid{grid-template-columns:1fr}.options-gallery{grid-template-columns:1fr}.gallery{height:220px}}
   </style>
@@ -57,26 +76,17 @@
   <div class="container">
     <header>
       <div class="brand">
-        <!-- Inline SVG logo for DevOrbit -->
         <div class="logo" aria-hidden="true">
-          <svg viewBox="0 0 100 100" class="logo-svg" xmlns="http://www.w3.org/3000/svg" role="img">
-            <defs>
-              <linearGradient id="g1" x1="0" x2="1">
-                <stop offset="0" stop-color="#06b6d4" />
-                <stop offset="1" stop-color="#7c3aed" />
-              </linearGradient>
-            </defs>
-            <rect rx="18" ry="18" width="100" height="100" fill="url(#g1)" />
-            <g transform="translate(18,20) scale(0.7)">
-              <circle cx="18" cy="18" r="10" fill="#021" opacity="0.12" />
-              <path d="M8 38 L30 18 L52 38 L30 58 Z" fill="#021" opacity="0.12" />
-              <text x="10" y="50" font-family="Inter, sans-serif" font-size="34" fill="#021" font-weight="800">DO</text>
-            </g>
+          <!-- Minimal DevOrbit mark: DO -->
+          <svg viewBox="0 0 100 100" width="46" height="46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#06b6d4"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs>
+            <rect rx="18" width="100" height="100" fill="url(#g1)"/>
+            <text x="50%" y="58%" font-family="Inter, sans-serif" font-size="44" font-weight="800" fill="#021" text-anchor="middle">DO</text>
           </svg>
         </div>
         <div>
           <h1>DevOrbit</h1>
-          <p class="lead">We build web & desktop projects. Transparent pricing. WhatsApp onboarding.</p>
+          <p class="lead">We build web apps, desktop apps and chatbots. Select a package and we'll contact you via WhatsApp.</p>
         </div>
       </div>
       <div>
@@ -88,31 +98,55 @@
       <section>
         <div class="card hero">
           <h2>Request a project — quick & affordable</h2>
-          <p class="muted">Choose a package, optionally add documentation or a chatbot, and submit. We'll contact you on WhatsApp to finalize requirements and payments.</p>
+          <p class="muted">Choose a package, optionally add documentation or the chatbot, submit, and DevOrbit will contact you on WhatsApp.</p>
 
-          <div style="margin-top:16px" class="options-gallery">
+          <div style="margin-top:14px" class="urgency">
+            <div>
+              <p style="margin:0;font-weight:700">⚠️ Limited intake — we only take a few ongoing projects</p>
+              <p class="muted" style="margin-top:6px">Quick: We currently accept a maximum of 15 ongoing projects.</p>
+            </div>
+            <div class="seal" id="seal" aria-hidden="true">
+              <!-- circular seal with animated waves -->
+              <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                  <clipPath id="clipCircle"><circle cx="50" cy="50" r="40" /></clipPath>
+                </defs>
+                <g clip-path="url(#clipCircle)">
+                  <!-- two moving waves -->
+                  <g class="wave" id="waveGroup" transform="translate(0,0)">
+                    <path id="wave1" d="" fill="rgba(6,182,212,0.35)"></path>
+                    <path id="wave2" d="" fill="rgba(124,58,237,0.28)"></path>
+                  </g>
+                </g>
+                <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="3"/>
+              </svg>
+              <div class="percent" id="sealPercent">75%</div>
+            </div>
+          </div>
+
+          <div style="margin-top:18px" class="options-gallery">
             <div>
               <h3 style="margin-top:0">Packages</h3>
               <div class="options" id="packageList">
-                <!-- packages rendered by JS -->
+                <!-- Populated by JS -->
               </div>
 
-              <div style="margin-top:14px">
+              <div style="margin-top:12px">
                 <h4>Description</h4>
-                <div id="packageDesc" class="muted">Select a package to see a brief description of what it includes.</div>
+                <div id="packageDesc" class="muted">Select a package to see a short description.</div>
               </div>
 
               <div style="margin-top:12px">
                 <h4>Documentation includes</h4>
-                <div class="muted">Proposal, SRS (Software Requirements Specification), SDS (Software Design Specification), Test plan, System implementation notes, and a User Manual.</div>
+                <div class="doc-tile muted">Proposal, SRS (Software Requirements Specification), SDS (Software Design Specification), Test plan, System implementation notes, and a User Manual.</div>
               </div>
             </div>
 
             <div>
               <div class="gallery" id="gallery">
-                <div class="gallery-main" id="galleryMain"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=1a2b3c4d5e6f7g8h9i0j" alt="sample"></div>
+                <div class="gallery-main" id="galleryMain"><div class="muted">Select a package to see samples</div></div>
                 <div class="thumbs" id="thumbs"></div>
-                <div class="muted" style="font-size:12px">Click thumbnails to view larger images. Images update based on selected package.</div>
+                <div class="muted" style="font-size:12px">Click thumbnails to view larger images. Add/remove images in <code>assets/*</code> and update <code>assets/gallery.json</code>.</div>
               </div>
             </div>
           </div>
@@ -120,13 +154,12 @@
           <div style="margin-top:18px" id="how">
             <h3>How this works</h3>
             <ol class="muted">
-              <li>Pick a project package (Web, Desktop, Chatbot) and whether you want Documentation.</li>
-              <li>Submit your selection with your WhatsApp number and a short project title. Our team will contact you on WhatsApp to discuss details (scope, timeline, price confirmation).</li>
-              <li>After agreeing we request a fixed deposit of <strong>1,500 KSH</strong>. You will be given payment instructions (e.g., M-Pesa paybill/till).</li>
-              <li>We build the project and once delivered we collect the remaining balance and walk you through installation and usage.</li>
-              <li>If you already have an idea, we can develop it for you as long as it fits one of the available categories (Web App, Desktop, Chatbot).</li>
+              <li>Pick a package (Web App, Desktop, Chatbot) and whether you want Documentation.</li>
+              <li>Submit your selection with your WhatsApp number and a short title (optional). DevOrbit will contact you on WhatsApp to discuss details (scope, timeline, price confirmation).</li>
+              <li>After agreeing we ask for a fixed deposit of <strong>1,500 KSH</strong>. Payment instructions will be provided by the team.</li>
+              <li>We build the project, then deliver and collect the remaining balance and walk you through installation and usage.</li>
+              <li>If you already have an idea we can build it, so long as it fits one of the available categories.</li>
             </ol>
-            <p class="muted">We value customer satisfaction. Revisions & support policy will be confirmed during WhatsApp onboarding.</p>
           </div>
         </div>
 
@@ -139,7 +172,7 @@
       <aside>
         <div class="card">
           <h3>Start your project</h3>
-          <p class="muted">Select a package, optionally add documentation or a chatbot, provide WhatsApp and a short title — we'll contact you.</p>
+          <p class="muted">Select a package, optionally add documentation or chatbot, provide WhatsApp and an optional short title — we'll contact you.</p>
 
           <form id="orderForm" onsubmit="return handleSubmit(event)">
             <div style="margin-bottom:10px">
@@ -150,9 +183,9 @@
             <div style="margin-bottom:10px">
               <label>Documentation</label>
               <div style="display:flex;gap:8px">
-                <label class="option-btn" id="docWith"><input type="radio" name="doc" value="with" style="display:none"> With documentation (+3,000 KSH)</label>
+                <label class="option-btn" id="docWith"><input type="radio" name="doc" value="with" style="display:none"> With documentation (+2,000 KSH)</label>
                 <label class="option-btn selected" id="docWithout"><input type="radio" name="doc" value="without" style="display:none" checked> Without documentation</label>
-                <label class="option-btn" id="docOnly"><input type="radio" name="doc" value="only" style="display:none"> Documentation only (3,000 KSH)</label>
+                <label class="option-btn" id="docOnly"><input type="radio" name="doc" value="only" style="display:none"> Documentation only (2,000 KSH)</label>
               </div>
             </div>
 
@@ -164,13 +197,13 @@
             </div>
 
             <div style="margin-bottom:10px">
-              <label>Project title (short)</label>
-              <input type="text" id="title" placeholder="E.g. Inventory system" required />
+              <label>Project title (optional)</label>
+              <input type="text" id="title" placeholder="E.g. Inventory system (optional)" />
             </div>
 
             <div style="margin-bottom:10px">
               <label>Details / Requirements (optional)</label>
-              <textarea id="details" placeholder="Describe features, users, colors, pages..."></textarea>
+              <textarea id="details" placeholder="Describe features, users, pages, colors..."></textarea>
             </div>
 
             <div class="summary">
@@ -180,10 +213,22 @@
             </div>
 
             <div style="display:flex;gap:8px;margin-top:12px">
-              <button type="submit" class="btn">Submit request</button>
+              <button type="submit" id="submitBtn" class="btn">Submit request</button>
               <button type="button" class="btn ghost" onclick="resetForm()">Reset</button>
             </div>
           </form>
+
+          <div id="fullNotice" style="display:none;margin-top:12px" class="special-box">
+            <strong>Slots full</strong>
+            <p class="muted">We're currently at capacity. Leave a special request below and we'll contact you if a slot opens.</p>
+            <form id="specialForm" onsubmit="return handleSpecial(event)">
+              <label>Your WhatsApp number</label>
+              <input type="text" id="specialPhone" placeholder="e.g. 712345678" required />
+              <label>Message (what do you need?)</label>
+              <textarea id="specialMsg" placeholder="Describe your idea..."></textarea>
+              <div style="margin-top:8px"><button class="btn" type="submit">Send special request</button></div>
+            </form>
+          </div>
 
           <p class="muted" style="margin-top:12px">After submission: we'll contact you on WhatsApp to confirm scope, send payment instructions, and begin work once deposit is received.</p>
         </div>
@@ -203,171 +248,349 @@
     <footer class="container" style="max-width:var(--max);">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
         <div class="muted">© DevOrbit — Simple project ordering</div>
-        <div class="muted">Need a professional to biuld your project? We can help.</div>
+        <div class="muted">Need a custom domain or payment setup? We can help.</div>
       </div>
     </footer>
   </div>
 
   <script>
-    // Configuration: If you want the form to save into Google Sheets, create a Google Apps Script Web App and paste its URL here.
-    // Example deployment returns JSON success on POST. Leave blank to download CSV locally instead.
-    const SHEET_ENDPOINT = ''; // e.g. 'https://script.google.com/macros/s/XXX/exec'
+  const SUBMIT_ENDPOINT = 'https://devorbit.ct.ws/submit_form.php';
+  const STATUS_ENDPOINT = 'https://devorbit.ct.ws/status.php';
+  const MAX_PROJECTS = 15; // keep in sync with Apps Script
+  const DEFAULT_MARKETING_PERCENT = 75; 
 
-    const PACKAGES = [
-      {id:'web', name:'Web App', price:5000, short:'HTML, CSS, JavaScript frontend; PHP + MySQL backend. Interacted with via a website.', images:[
-        'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=1a2b3c4d5e6f7g8h9i0j',
-        'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=4a5b6c7d8e9f0a1b2c3d',
-      ], desc: 'A web application includes a frontend (HTML, CSS, JavaScript) and a backend (PHP & MySQL) that processes data. Users interact through their browser.'},
-      {id:'desktop', name:'Desktop (VB/C#)', price:3500, short:'Windows desktop application built with Visual Basic or C#. Installs and runs on Windows machines.', images:[
-        'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=8f1b2e3b1c2a4d6e7f8a9b0c1d2e3f4a',
-        'https://images.unsplash.com/photo-1553851639-93b7e1c1a6b3?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a',
-      ], desc:'Windows desktop application using Visual Basic or C#. Good for local tools that require direct OS access.'},
-      {id:'chatbot', name:'Chatbot', price:3500, short:'A conversational chatbot that can be embedded into websites or messaging platforms for guided interactions.', images:[
-        'https://images.unsplash.com/photo-1523475496153-3d6ccf4f4f0b?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=2b3c4d5e6f7g8h9i0j1k',
-        'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=3c4d5e6f7g8h9i0j1k2l',
-      ], desc:'A chatbot provides automated conversational flows for FAQs, lead capture, or guided assistance.'},
-      {id:'mobile', name:'Mobile App (coming soon)', price:7000, short:'Android apps using Java/Kotlin. Coming soon.', images:[], desc:'Not available yet.'},
-      {id:'ai', name:'AI Integration (coming soon)', price:7000, short:'AI features & integrations. Coming soon.', images:[], desc:'Not available yet.'}
-    ];
+  // Packages data + images (gallery.json will override images if present)
+  const PACKAGES = [
+    { id:'web', name:'Web App', price:5000, short:'HTML, CSS, JavaScript frontend; PHP + MySQL backend.', images:[], desc:'A web application includes a frontend (HTML/CSS/JS) and a backend (PHP & MySQL). Users interact via a website.' },
+    { id:'desktop', name:'Desktop (VB/C#)', price:3000, short:'Windows desktop app using VB or C#', images:[], desc:'Windows desktop application using Visual Basic or C#.' },
+    { id:'chatbot', name:'Chatbot', price:3000, short:'Conversational flows for websites or platforms', images:[], desc:'A chatbot for FAQs, lead capture, or guided assistance.' },
+    { id:'mobile', name:'Mobile App (coming soon)', price:7000, short:'Android apps (Java/Kotlin) — coming soon', images:[], desc:'Not available yet.' },
+    { id:'ai', name:'AI Integration (coming soon)', price:7000, short:'AI features — coming soon', images:[], desc:'Not available yet.' }
+  ];
 
-    // Render package buttons
-    const pkgOptions = document.getElementById('pkgOptions');
-    const packageList = document.getElementById('packageList');
+  // UI refs
+  const pkgOptionsEl = document.getElementById('pkgOptions');
+  const packageListEl = document.getElementById('packageList');
+  const packageDescEl = document.getElementById('packageDesc');
+  const galleryMain = document.getElementById('galleryMain');
+  const thumbsEl = document.getElementById('thumbs');
+  const selText = document.getElementById('selText');
+  const totalEl = document.getElementById('total');
+  const sealPercentEl = document.getElementById('sealPercent');
+  const wave1 = document.getElementById('wave1');
+  const wave2 = document.getElementById('wave2');
+  const waveGroup = document.getElementById('waveGroup');
+  const submitBtn = document.getElementById('submitBtn');
+  const fullNotice = document.getElementById('fullNotice');
+
+  // state
+  let galleries = {}; // loads from assets/gallery.json
+  let selectedPackage = null;
+  let currentPercent = DEFAULT_MARKETING_PERCENT;
+
+  // init: render package buttons & list
+  function renderPackages() {
+    packageListEl.innerHTML = '';
+    pkgOptionsEl.innerHTML = '';
     PACKAGES.forEach(p=>{
-      // left column list
-      const btn = document.createElement('div'); btn.className='option-btn'+(p.images.length===0? ' disabled':''); btn.dataset.id=p.id;
-      btn.innerHTML = `<div><strong>${p.name}</strong><div class="pkg-desc">${p.short}</div></div><div class="price">${p.price.toLocaleString()} KSH</div>`;
-      packageList.appendChild(btn);
+      const left = document.createElement('div');
+      left.className = 'option-btn' + (p.images.length===0 ? ' disabled' : '');
+      left.dataset.id = p.id;
+      left.innerHTML = `<div><strong>${p.name}</strong><div class="pkg-desc">${p.short}</div></div><div class="price">${p.price.toLocaleString()} KSH</div>`;
+      packageListEl.appendChild(left);
 
-      // right column condensed options
-      const li = document.createElement('div'); li.className='option-btn'+(p.images.length===0? ' disabled':''); li.dataset.id=p.id; li.style.marginBottom='8px';
-      li.innerHTML = `<div style="font-weight:600">${p.name}</div><div class="price">${p.price.toLocaleString()} KSH</div>`;
-      pkgOptions.appendChild(li);
+      const right = document.createElement('div');
+      right.className = 'option-btn' + (p.images.length===0 ? ' disabled' : '');
+      right.dataset.id = p.id; right.style.marginBottom='8px';
+      right.innerHTML = `<div style="font-weight:600">${p.name}</div><div class="price">${p.price.toLocaleString()} KSH</div>`;
+      pkgOptionsEl.appendChild(right);
 
-      [btn, li].forEach(el=>{
-        el.addEventListener('click', ()=>{
-          if(el.classList.contains('disabled')) return;
+      [left, right].forEach(el=>{
+        el.addEventListener('click', ()=> {
+          if (el.classList.contains('disabled')) return;
           document.querySelectorAll('.option-btn').forEach(o=>o.classList.remove('selected'));
           el.classList.add('selected');
-          // mark matching on other column
+          // sync visual on both lists
           document.querySelectorAll('#pkgOptions .option-btn, #packageList .option-btn').forEach(o=>{ if(o.dataset.id===el.dataset.id) o.classList.add('selected'); else o.classList.remove('selected'); });
-          // set radio (create hidden input)
           setSelectedPackage(el.dataset.id);
         });
       });
     });
+    // select first available package by default
+    const firstAvailable = PACKAGES.find(p=>p.images || true);
+    setSelectedPackage(firstAvailable.id);
+  }
 
-    // package selection state
-    let selectedPackage = null;
-    function setSelectedPackage(id){
-      selectedPackage = PACKAGES.find(x=>x.id===id);
-      updateSummary();
+  function setSelectedPackage(id) {
+    selectedPackage = PACKAGES.find(x=>x.id===id);
+    packageDescEl.textContent = selectedPackage ? selectedPackage.desc : 'Select a package to see a description.';
+    updateSummary();
+    updateGallery();
+  }
+
+  // gallery.json loader
+  async function loadGalleryJson() {
+    try {
+      const res = await fetch('assets/gallery.json');
+      if (!res.ok) return;
+      const data = await res.json();
+      galleries = data;
+      // override PACKAGES' images if present
+      PACKAGES.forEach(p=>{
+        if (galleries[p.id] && galleries[p.id].length) {
+          p.images = galleries[p.id].map(x=>x.src);
+          p.captions = galleries[p.id].map(x=>x.caption||'');
+        }
+      });
+      renderPackages(); // re-render so images exist
       updateGallery();
-      // update description
-      document.getElementById('packageDesc').textContent = selectedPackage ? selectedPackage.desc : 'Select a package to see a brief description.';
+    } catch (err) {
+      console.warn('No gallery.json or failed to load:', err);
     }
+  }
 
-    // gallery functions
-    const galleryMain = document.getElementById('galleryMain');
-    const thumbs = document.getElementById('thumbs');
-    function updateGallery(){
-      thumbs.innerHTML='';
-      if(!selectedPackage || !selectedPackage.images || selectedPackage.images.length===0){
-        galleryMain.innerHTML = '<div class="muted">No samples available for this package.</div>';
+  function updateGallery(){
+    thumbsEl.innerHTML = '';
+    if (!selectedPackage || !selectedPackage.images || selectedPackage.images.length === 0) {
+      galleryMain.innerHTML = '<div class="muted">No samples available for this package.</div>';
+      return;
+    }
+    const first = selectedPackage.images[0];
+    galleryMain.innerHTML = `<img src="${first}" alt="sample">`;
+    selectedPackage.images.forEach((src, i) => {
+      const img = document.createElement('img');
+      img.src = src; if (i === 0) img.classList.add('active');
+      img.addEventListener('click', ()=> {
+        galleryMain.innerHTML = `<img src="${src}" alt="sample">`;
+        thumbsEl.querySelectorAll('img').forEach(im=>im.classList.remove('active'));
+        img.classList.add('active');
+      });
+      thumbsEl.appendChild(img);
+    });
+  }
+
+  // summary
+  function getDocChoice(){
+    if (document.getElementById('docOnly').classList.contains('selected')) return 'only';
+    if (document.getElementById('docWith').classList.contains('selected')) return 'with';
+    return 'without';
+  }
+  function updateSummary(){
+    const doc = getDocChoice();
+    let total = 0; let parts = [];
+    if (selectedPackage) { total += selectedPackage.price; parts.push(selectedPackage.name + ` (${selectedPackage.price.toLocaleString()} KSH)`); }
+    if (doc === 'only') { total = 2000; parts = ['Documentation only (2,000 KSH)']; }
+    else if (doc === 'with') { total += 2000; parts.push('Documentation (2,000 KSH)'); }
+    selText.textContent = parts.length ? parts.join(' + ') : 'No selection';
+    totalEl.textContent = total ? `${total.toLocaleString()} KSH` : '0 KSH';
+  }
+
+  // doc toggles
+  ['docWith','docWithout','docOnly'].forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener('click', ()=> {
+      document.getElementById('docWith').classList.remove('selected');
+      document.getElementById('docWithout').classList.remove('selected');
+      document.getElementById('docOnly').classList.remove('selected');
+      el.classList.add('selected');
+      updateSummary();
+    });
+  });
+
+  // PHONE normalization
+  function normalizePhone(cc, phone) {
+    phone = phone.replace(/\D+/g,'');
+    if (phone.startsWith('0')) phone = phone.substring(1);
+    if (phone.length > 9 && phone.startsWith(cc.replace('+',''))) phone = phone.substring(cc.replace('+','').length);
+    return cc.replace('+','') + phone;
+  }
+
+  // seal rendering (simple wave math)
+  function renderSeal(percent) {
+    currentPercent = Math.max(0, Math.min(100, Math.round(percent)));
+    sealPercentEl.textContent = currentPercent + '%';
+    // compute Y offset for wave: 0% -> bottom filled 0, 100% -> filled full
+    const fillRatio = currentPercent / 100;
+    const waveHeight = 80; // px approx because viewBox 100
+    const translateY = (1 - fillRatio) * 60; // adjust
+    // create sine wave paths
+    const wavePath1 = wavePath(0.9, 12, 0, translateY);
+    const wavePath2 = wavePath(0.95, 10, 20, translateY + 4);
+    wave1.setAttribute('d', wavePath1);
+    wave2.setAttribute('d', wavePath2);
+    // animate horizontal movement using CSS transforms
+    waveGroup.style.transition = 'transform 800ms linear';
+    // small horizontal oscillation
+    waveGroup.style.transform = `translateX(${(Date.now()%1000 - 500)/100}px) translateY(${translateY}px)`;
+  }
+
+  // generate SVG wave path (simple approximation)
+  function wavePath(amplitudeScale, wavelength, phase, translateY) {
+    // create basic path across x from -10 to 110
+    let path = `M -10 ${110}`;
+    // vertical baseline at bottom, wave above it
+    const steps = 18;
+    for (let i = 0; i <= steps; i++) {
+      const x = -10 + (120 / steps) * i;
+      const theta = (i/steps) * Math.PI * 2 * (120/wavelength) + (phase/10);
+      const y = 50 + Math.sin(theta) * amplitudeScale * 6 - translateY;
+      path += ` L ${x} ${y}`;
+    }
+    path += ` L 120 120 L -10 120 Z`;
+    return path;
+  }
+
+  // fetch status (via your PHP proxy)
+  async function fetchStatusAndUpdate() {
+    try {
+      // show default marketing percent initially
+      renderSeal(DEFAULT_MARKETING_PERCENT);
+
+      const res = await fetch(STATUS_ENDPOINT, { method: 'GET', credentials: 'omit' });
+      if (!res.ok) {
+        console.warn('Status fetch failed:', res.status);
         return;
       }
-      // show first image
-      galleryMain.innerHTML = `<img src="${selectedPackage.images[0]}" alt="sample">`;
-      selectedPackage.images.forEach((src,i)=>{
-        const t = document.createElement('img'); t.src=src; if(i===0) t.classList.add('active'); t.addEventListener('click', ()=>{ galleryMain.innerHTML = `<img src="${src}" alt="sample">`; document.querySelectorAll('#thumbs img').forEach(im=>im.classList.remove('active')); t.classList.add('active'); }); thumbs.appendChild(t);
-      });
-    }
-
-    // doc options toggles
-    ['docWith','docWithout','docOnly'].forEach(id=>{ const el=document.getElementById(id); el.addEventListener('click', ()=>{ document.querySelectorAll('#docWith,#docWithout,#docOnly').forEach(x=>x.classList.remove('selected')); el.classList.add('selected'); updateSummary(); }); });
-
-    function getDocChoice(){ if(document.getElementById('docOnly').classList.contains('selected')) return 'only'; if(document.getElementById('docWith').classList.contains('selected')) return 'with'; return 'without'; }
-
-    // initial defaults
-    // select web by default
-    setSelectedPackage('web');
-
-    // pricing & summary
-    function updateSummary(){
-      const doc = getDocChoice();
-      let total = 0; let parts = [];
-      if(selectedPackage){ total += selectedPackage.price; parts.push(selectedPackage.name + ` (${selectedPackage.price.toLocaleString()} KSH)`); }
-      // if documentation only selected
-      if(doc==='only'){ total = PACKAGES.find(x=>x.id==='web') ? 3000 : 3000; parts = ['Documentation only (3,000 KSH)']; }
-      else if(doc==='with'){ total += 3000; parts.push('Documentation (3,000 KSH)'); }
-      document.getElementById('selText').textContent = parts.length ? parts.join(' + ') : 'No selection';
-      document.getElementById('total').textContent = total ? `${total.toLocaleString()} KSH` : '0 KSH';
-    }
-
-    function resetForm(){
-      document.getElementById('orderForm').reset(); document.querySelectorAll('.option-btn').forEach(o=>o.classList.remove('selected'));
-      setSelectedPackage('web'); document.getElementById('cc').value='+254'; document.getElementById('phone').value=''; document.getElementById('title').value=''; document.getElementById('details').value=''; document.getElementById('docWithout').classList.add('selected'); updateSummary();
-    }
-
-    // normalize phone
-    function normalizePhone(cc, phone){ phone = phone.replace(/\D+/g,''); if(phone.startsWith('0')) phone = phone.substring(1); if(phone.length > 9 && phone.startsWith(cc.replace('+',''))){ phone = phone.substring(cc.replace('+','').length); } return cc.replace('+','') + phone; }
-
-    // helper: download CSV if no endpoint
-    function downloadCSV(row, filename='request.csv'){
-      const csv = Object.keys(row).join(',') + '\n' + Object.values(row).map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',');
-      const blob = new Blob([csv], {type:'text/csv'});
-      const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = filename; a.click(); URL.revokeObjectURL(url);
-    }
-
-    async function handleSubmit(e){
-      e.preventDefault();
-      if(!selectedPackage){ alert('Please select a package.'); return false; }
-      const phoneRaw = document.getElementById('phone').value.trim(); const cc = document.getElementById('cc').value; const title = document.getElementById('title').value.trim(); const details = document.getElementById('details').value.trim();
-      if(!phoneRaw){ alert('Enter your WhatsApp number.'); return false; }
-      if(!title){ alert('Enter a short project title.'); return false; }
-      const phone = normalizePhone(cc, phoneRaw);
-
-      const doc = getDocChoice();
-      let total = 0; let parts = [];
-      if(doc==='only'){ total = 3000; parts = ['Documentation only']; }
-      else { total += selectedPackage.price; parts.push(selectedPackage.name); if(doc==='with'){ total += 3000; parts.push('Documentation'); } }
-
-      const payload = {
-        phone_number: phone,
-        project_type: parts.join(' + '),
-        total_amount: total,
-        deposit_paid: 'No',
-        completed_documentation: 'No',
-        completed_project: 'No',
-        delivered_and_cleared: 'No',
-        title: title,
-        details: details,
-        timestamp: new Date().toISOString()
-      };
-
-      if(SHEET_ENDPOINT){
-        try{
-          const res = await fetch(SHEET_ENDPOINT, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-          const data = await res.json();
-          if(data && (data.result==='success' || data.status===200 || data.success)){
-            alert('Request saved. We will contact you on WhatsApp shortly.');
-            resetForm();
-            return false;
-          } else {
-            console.warn('Sheet response:', data); alert('Could not save to Google Sheets. Check console.');
-          }
-        }catch(err){ console.error(err); alert('Failed to save request to the configured endpoint. Downloading a local copy instead.'); downloadCSV(payload); resetForm(); return false; }
+      const data = await res.json();
+      if (data && data.success) {
+        renderSeal(data.percent || Math.round((data.ongoing || 0) / MAX_PROJECTS * 100));
+        if ((data.ongoing || 0) >= MAX_PROJECTS) {
+          // lock form
+          document.getElementById('orderForm').style.display = 'none';
+          fullNotice.style.display = 'block';
+        } else {
+          document.getElementById('orderForm').style.display = '';
+          fullNotice.style.display = 'none';
+        }
       } else {
-        // fallback: download CSV so you can manually upload
-        downloadCSV(payload, 'devorbit-request-' + Date.now() + '.csv');
-        alert('No Google Sheets endpoint configured — we downloaded a CSV copy of your request. Please send it to the DevOrbit team.');
-        resetForm();
-        return false;
+        // API returned not success: still show marketing percent
+        renderSeal(DEFAULT_MARKETING_PERCENT);
       }
+    } catch (err) {
+      console.warn('Status error', err);
+      renderSeal(DEFAULT_MARKETING_PERCENT);
     }
+  }
 
-    // On load
-    window.addEventListener('load', ()=>{ updateGallery(); updateSummary(); });
+  // submit normal order
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!selectedPackage) { alert('Please select a package.'); return false; }
+    const phoneRaw = document.getElementById('phone').value.trim();
+    const cc = document.getElementById('cc').value;
+    const title = document.getElementById('title').value.trim();
+    const details = document.getElementById('details').value.trim();
+    if (!phoneRaw) { alert('Enter your WhatsApp number.'); return false; }
+
+    const phone = normalizePhone(cc, phoneRaw);
+    const doc = getDocChoice();
+    let total = 0; let parts = [];
+    if (doc === 'only') { total = 2000; parts = ['Documentation only']; }
+    else { total += selectedPackage.price; parts.push(selectedPackage.name); if (doc === 'with') { total += 2000; parts.push('Documentation'); } }
+
+    const payload = {
+      phone_number: phone,
+      project_type: parts.join(' + '),
+      total_amount: total,
+      deposit_paid: 'No',
+      completed_documentation: 'No',
+      completed_project: 'No',
+      delivered_and_cleared: 'No',
+      title: title || '',
+      details: details || ''
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+      const res = await fetch(SUBMIT_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (data && data.success) {
+        alert('Request saved. A DevOrbit team member will contact you on WhatsApp shortly.');
+        resetForm();
+        // refresh status
+        setTimeout(fetchStatusAndUpdate, 1000);
+      } else {
+        alert('Failed to submit: ' + (data && data.error ? data.error : 'Unknown error'));
+      }
+    } catch (err) {
+      console.error('Submit error', err);
+      alert('Submission failed — check console or contact the DevOrbit team.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit request';
+    }
+    return false;
+  }
+
+  // special request handler (when slots full)
+  async function handleSpecial(e) {
+    e.preventDefault();
+    const phoneRaw = document.getElementById('specialPhone').value.trim();
+    const cc = '+254';
+    const msg = document.getElementById('specialMsg').value.trim();
+    if (!phoneRaw) { alert('Enter your WhatsApp number.'); return false; }
+    const phone = normalizePhone(cc, phoneRaw);
+
+    const payload = {
+      phone_number: phone,
+      project_type: 'Special Request',
+      total_amount: 0,
+      deposit_paid: 'No',
+      completed_documentation: 'No',
+      completed_project: 'No',
+      delivered_and_cleared: 'No',
+      title: 'Special request',
+      details: msg
+    };
+
+    try {
+      const res = await fetch(SUBMIT_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (data && data.success) {
+        alert('Special request saved. We will contact you when a slot opens.');
+        document.getElementById('specialForm').reset();
+      } else {
+        alert('Failed to send special request: ' + (data && data.error ? data.error : 'Unknown error'));
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Failed to send special request.');
+    }
+    return false;
+  }
+
+  function resetForm() {
+    document.getElementById('orderForm').reset();
+    document.querySelectorAll('.option-btn').forEach(o=>o.classList.remove('selected'));
+    setSelectedPackage('web');
+    document.getElementById('cc').value = '+254';
+    document.getElementById('phone').value = '';
+    document.getElementById('title').value = '';
+    document.getElementById('details').value = '';
+    document.getElementById('docWithout').classList.add('selected');
+    updateSummary();
+  }
+
+  // startup
+  (function init(){
+    renderPackages();
+    loadGalleryJson();
+    updateGallery();
+    updateSummary();
+    fetchStatusAndUpdate();
+    // periodic refresh of status every 30s (optional)
+    setInterval(fetchStatusAndUpdate, 30000);
+  })();
   </script>
 </body>
 </html>
