@@ -445,7 +445,7 @@
       // show default marketing percent initially
       renderSeal(DEFAULT_MARKETING_PERCENT);
 
-      const res = await fetch(STATUS_ENDPOINT, { method: 'GET', credentials: 'omit' });
+      const res = await fetch(STATUS_ENDPOINT, { method: 'GET', mode: 'omit', credentials: 'omit', header:{'Content-Type': 'application/json'} });
       if (!res.ok) {
         console.warn('Status fetch failed:', res.status);
         return;
@@ -593,5 +593,6 @@
   </script>
 </body>
 </html>
+
 
 
