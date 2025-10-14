@@ -1,599 +1,271 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>DevOrbit — Request a Project</title>
-  <meta name="description" content="DevOrbit - Order web & desktop projects. Submit your request and we'll contact you on WhatsApp." />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevOrbit - Project Submission</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#04111a; --card:#071822; --muted:#9fb3bd; --accent1:#06b6d4; --accent2:#7c3aed;
-      --glass: rgba(255,255,255,0.03); --radius:12px; --max:1100px;
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      color: #333;
     }
-    *{box-sizing:border-box}
-    body{font-family:Inter,system-ui,Arial; margin:0; color:#e7f3f6; background:linear-gradient(180deg,#02121a,#041827); -webkit-font-smoothing:antialiased;}
-    .container{max-width:var(--max); margin:28px auto; padding:20px}
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{display:flex;gap:14px;align-items:center}
-    .logo{width:64px;height:64px;border-radius:14px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#021;letter-spacing:1px;font-size:20px}
-    h1{margin:0;font-size:20px}
-    p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
-    .grid{display:grid;grid-template-columns:1fr 420px;gap:26px;margin-top:20px}
-    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
-    .muted{color:var(--muted);font-size:13px}
-
-    /* Options + gallery */
-    .options-gallery{display:grid;grid-template-columns:1fr 340px;gap:16px}
-    .options{display:flex;flex-direction:column;gap:10px}
-    .option-btn{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border-radius:10px;background:var(--glass);border:1px solid rgba(255,255,255,0.03);cursor:pointer}
-    .option-btn.selected{box-shadow:0 8px 30px rgba(12,60,77,0.12);border-color:rgba(6,182,212,0.12)}
-    .option-btn.disabled{opacity:0.45;cursor:not-allowed}
-    .price{font-weight:700}
-    .pkg-desc{color:var(--muted);font-size:13px;margin-top:6px}
-
-    /* clearer documentation tile */
-    .doc-tile { border:2px solid rgba(255,255,255,0.06); box-shadow: 0 6px 18px rgba(0,0,0,0.35); padding:10px; border-radius:10px; background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent); }
-
-    .gallery{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:10px;padding:10px;height:300px;display:flex;flex-direction:column;gap:8px}
-    .gallery-main{flex:1;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#03151c}
-    .gallery-main img{max-width:100%;max-height:100%;object-fit:cover;border-radius:6px}
-    .thumbs{display:flex;gap:8px;overflow-x:auto;padding-top:6px}
-    .thumbs img{height:60px;border-radius:8px;cursor:pointer;border:2px solid transparent}
-    .thumbs img.active{border-color:var(--accent1)}
-
-    /* seal — styles for the animated project slots seal (shows % slots filled) */
-    .urgency {display:flex;align-items:center;gap:16px;margin-top:12px}
-    .urgency p {margin:0}
-    .seal {width:96px;height:96px;position:relative}
-    .seal svg {width:96px;height:96px;display:block}
-    .seal .percent {position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;font-weight:800;color:#e7f3f6}
-    /* wave will move horizontally and vertically by CSS transforms set via JS */
-    .wave { transform-origin:center bottom; }
-
-    /* small bubble animation (decorative) */
-    .bubble { position:absolute; border-radius:999px; opacity:0.8; animation:rise 4s linear infinite; background:rgba(255,255,255,0.06); }
-    @keyframes rise {
-      0% { transform: translateY(50px) scale(0.6); opacity:0.6 }
-      100% { transform: translateY(-120px) scale(1); opacity:0.05 }
+    header {
+      background: #111827;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
     }
-    /* form */
-    form label{display:block;font-size:13px;margin-bottom:6px}
-    input[type=text], textarea, select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
-    textarea{min-height:100px}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#022;font-weight:700;border:none;cursor:pointer}
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--accent1)}
-    .summary{padding:12px;border-radius:8px;background:linear-gradient(180deg, rgba(6,182,212,0.03), transparent);border:1px solid rgba(6,182,212,0.05)}
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #111827;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      margin-top: 5px;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #2563eb;
+      outline: none;
+    }
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 12px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
 
-    .special-box{border:2px dashed rgba(255,255,255,0.06);padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);}
+    /* Documentation tiles */
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+    .tile {
+      flex: 1 1 calc(45% - 1rem);
+      border: 2px solid #2563eb;
+      border-radius: 12px;
+      text-align: center;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .tile:hover {
+      background: #2563eb;
+      color: white;
+    }
+    .tile.active {
+      background: #2563eb;
+      color: white;
+      border-color: #1d4ed8;
+    }
 
-    footer{margin-top:20px;color:var(--muted);font-size:13px}
-    @media (max-width:980px){.grid{grid-template-columns:1fr}.options-gallery{grid-template-columns:1fr}.gallery{height:220px}}
+    /* Gallery preview */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Seal animation */
+    .seal {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 2rem auto;
+      position: relative;
+      overflow: hidden;
+      background: #e5e7eb;
+      border: 4px solid #2563eb;
+    }
+    .water {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: #2563eb;
+      transition: height 1s ease-in-out;
+    }
+    .percent-text {
+      position: absolute;
+      width: 100%;
+      top: 40%;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+    .notice {
+      text-align: center;
+      color: red;
+      display: none;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
+  <header>
+    <h1>DevOrbit</h1>
+    <p>Transforming Ideas Into Code</p>
+  </header>
+
   <div class="container">
-    <header>
-      <div class="brand">
-        <div class="logo" aria-hidden="true">
-          <!-- Minimal DevOrbit mark: DO -->
-          <svg viewBox="0 0 100 100" width="46" height="46" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#06b6d4"/><stop offset="1" stop-color="#7c3aed"/></linearGradient></defs>
-            <rect rx="18" width="100" height="100" fill="url(#g1)"/>
-            <text x="50%" y="58%" font-family="Inter, sans-serif" font-size="44" font-weight="800" fill="#021" text-anchor="middle">DO</text>
-          </svg>
-        </div>
-        <div>
-          <h1>DevOrbit</h1>
-          <p class="lead">We build web apps, desktop apps and chatbots. Select a package and we'll contact you via WhatsApp.</p>
-        </div>
+    <h2>Request a Project</h2>
+
+    <div class="seal">
+      <div class="water" id="water"></div>
+      <div class="percent-text" id="percentText">0%</div>
+    </div>
+    <p class="notice" id="fullNotice">Currently full! Please try again later.</p>
+
+    <form id="orderForm">
+      <label>Phone Number:</label>
+      <input type="text" id="phone" required>
+
+      <label>Project Type:</label>
+      <select id="projectType" required>
+        <option value="">Select...</option>
+        <option value="Web App">Web App</option>
+        <option value="VB System">VB System</option>
+        <option value="Chatbot">Chatbot</option>
+      </select>
+
+      <label>Include Documentation?</label>
+      <div class="options">
+        <div class="tile" data-value="Without Documentation">Without Documentation</div>
+        <div class="tile" data-value="With Documentation (+Proposal, SRS, SDS, Test Plan, Implementation, Manual)">With Documentation (+Proposal, SRS, SDS, Test Plan, Implementation, Manual)</div>
       </div>
-      <div>
-        <a class="btn ghost" href="#how">How it works</a>
-      </div>
-    </header>
 
-    <main class="grid">
-      <section>
-        <div class="card hero">
-          <h2>Request a project — quick & affordable</h2>
-          <p class="muted">Choose a package, optionally add documentation or the chatbot, submit, and DevOrbit will contact you on WhatsApp.</p>
+      <label>Project Title:</label>
+      <input type="text" id="title" placeholder="Your project title" required>
 
-          <div style="margin-top:14px" class="urgency">
-            <div>
-              <p style="margin:0;font-weight:700">⚠️ Limited intake — we are only taking a few projects</p>
-              <p class="muted" style="margin-top:6px">Quick: Be among the few projects we pick.</p>
-            </div>
-            <div class="seal" id="seal" aria-hidden="true">
-              <!-- circular seal with animated waves -->
-              <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-                <defs>
-                  <clipPath id="clipCircle"><circle cx="50" cy="50" r="40" /></clipPath>
-                </defs>
-                <g clip-path="url(#clipCircle)">
-                  <!-- two moving waves -->
-                  <g class="wave" id="waveGroup" transform="translate(0,0)">
-                    <path id="wave1" d="" fill="rgba(6,182,212,0.35)"></path>
-                    <path id="wave2" d="" fill="rgba(124,58,237,0.28)"></path>
-                  </g>
-                </g>
-                <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="3"/>
-              </svg>
-              <div class="percent" id="sealPercent">75%</div>
-            </div>
-          </div>
+      <label>Project Details:</label>
+      <textarea id="details" rows="4" placeholder="Brief description of what your project entails..." required></textarea>
 
-          <div style="margin-top:18px" class="options-gallery">
-            <div>
-              <h3 style="margin-top:0">Packages</h3>
-              <div class="options" id="packageList">
-                <!-- Populated by JS -->
-              </div>
-
-              <div style="margin-top:12px">
-                <h4>Description</h4>
-                <div id="packageDesc" class="muted">Select a package to see a short description.</div>
-              </div>
-
-              <div style="margin-top:12px">
-                <h4>Documentation includes</h4>
-                <div class="doc-tile muted">Proposal, SRS (Software Requirements Specification), SDS (Software Design Specification), Test plan, System implementation notes, and a User Manual.</div>
-              </div>
-            </div>
-
-            <div>
-              <div class="gallery" id="gallery">
-                <div class="gallery-main" id="galleryMain"><div class="muted">Select a package to see samples</div></div>
-                <div class="thumbs" id="thumbs"></div>
-                <div class="muted" style="font-size:12px">Click thumbnails to view larger images. Add/remove images in <code>assets/*</code> and update <code>assets/gallery.json</code>.</div>
-              </div>
-            </div>
-          </div>
-
-          <div style="margin-top:18px" id="how">
-            <h3>How this works</h3>
-            <ol class="muted">
-              <li>Pick a package (Web App, Desktop, Chatbot) and whether you want Documentation.</li>
-              <li>Submit your selection with your WhatsApp number and a short title (optional). DevOrbit will contact you on WhatsApp to discuss details (scope, timeline, price confirmation).</li>
-              <li>After agreeing we ask for a fixed deposit of <strong>1,500 KSH</strong>. Payment instructions will be provided by the team.</li>
-              <li>We build the project, then deliver and collect the remaining balance and walk you through installation and usage.</li>
-              <li>If you already have an idea we can build it, so long as it fits one of the available categories.</li>
-            </ol>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top:16px">
-          <h3>Showcase</h3>
-          <p class="muted">Preview sample screenshots of previous projects. Selecting a package updates this gallery so you see relevant examples.</p>
-        </div>
-      </section>
-
-      <aside>
-        <div class="card">
-          <h3>Start your project</h3>
-          <p class="muted">Select a package, optionally add documentation or chatbot, provide WhatsApp and an optional short title — we'll contact you.</p>
-
-          <form id="orderForm" onsubmit="return handleSubmit(event)">
-            <div style="margin-bottom:10px">
-              <label>Choose package</label>
-              <div id="pkgOptions"></div>
-            </div>
-
-            <div style="margin-bottom:10px">
-              <label>Documentation</label>
-              <div style="display:flex;gap:8px">
-                <label class="option-btn" id="docWith"><input type="radio" name="doc" value="with" style="display:none"> With documentation (+2,000 KSH)</label>
-                <label class="option-btn selected" id="docWithout"><input type="radio" name="doc" value="without" style="display:none" checked> Without documentation</label>
-                <label class="option-btn" id="docOnly"><input type="radio" name="doc" value="only" style="display:none"> Documentation only (2,000 KSH)</label>
-              </div>
-            </div>
-
-            <div style="margin-bottom:10px">
-              <label>WhatsApp country code</label>
-              <select id="cc" style="margin-bottom:8px"><option value="+254" selected>+254 (Kenya)</option><option value="+1">+1 (USA)</option><option value="+44">+44 (UK)</option><option value="+254">Other</option></select>
-              <label>WhatsApp number (no plus or spaces)</label>
-              <input type="text" id="phone" placeholder="e.g. 712345678" required />
-            </div>
-
-            <div style="margin-bottom:10px">
-              <label>Project title (optional)</label>
-              <input type="text" id="title" placeholder="E.g. Inventory system (optional)" />
-            </div>
-
-            <div style="margin-bottom:10px">
-              <label>Details / Requirements (optional)</label>
-              <textarea id="details" placeholder="Describe features, users, pages, colors..."></textarea>
-            </div>
-
-            <div class="summary">
-              <div class="muted">Order summary</div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><div id="selText">No selection</div><div class="price" id="total">0 KSH</div></div>
-              <div class="muted" style="margin-top:8px">Deposit required: <strong>1,500 KSH</strong> (fixed). Remaining balance on delivery.</div>
-            </div>
-
-            <div style="display:flex;gap:8px;margin-top:12px">
-              <button type="submit" id="submitBtn" class="btn">Submit request</button>
-              <button type="button" class="btn ghost" onclick="resetForm()">Reset</button>
-            </div>
-          </form>
-
-          <div id="fullNotice" style="display:none;margin-top:12px" class="special-box">
-            <strong>Slots full</strong>
-            <p class="muted">We're currently at capacity. Leave a special request below and we'll contact you if a slot opens.</p>
-            <form id="specialForm" onsubmit="return handleSpecial(event)">
-              <label>Your WhatsApp number</label>
-              <input type="text" id="specialPhone" placeholder="e.g. 712345678" required />
-              <label>Message (what do you need?)</label>
-              <textarea id="specialMsg" placeholder="Describe your idea..."></textarea>
-              <div style="margin-top:8px"><button class="btn" type="submit">Send special request</button></div>
-            </form>
-          </div>
-
-          <p class="muted" style="margin-top:12px">After submission: we'll contact you on WhatsApp to confirm scope, send payment instructions, and begin work once deposit is received.</p>
-        </div>
-
-        <div class="card" style="margin-top:12px">
-          <h4>Why DevOrbit?</h4>
-          <ul class="muted">
-            <li>Transparent fixed pricing</li>
-            <li>WhatsApp onboarding for quick communication</li>
-            <li>Documentation & handover included</li>
-            <li>Local payment options supported</li>
-          </ul>
-        </div>
-      </aside>
-    </main>
-
-    <footer class="container" style="max-width:var(--max);">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
-        <div class="muted">© DevOrbit — Simple project ordering</div>
-        <div class="muted">Need a custom domain or payment setup? We can help.</div>
-      </div>
-    </footer>
+      <button type="submit">Submit Request</button>
+    </form>
   </div>
 
   <script>
-  const SUBMIT_ENDPOINT = 'https://devorbit.ct.ws/submit_form.php';
-  const STATUS_ENDPOINT = 'https://devorbit.ct.ws/status.php';
-  const MAX_PROJECTS = 15; // keep in sync with Apps Script
-  const DEFAULT_MARKETING_PERCENT = 75; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzALB9V4RTM96uHI0Sikg-SAy_mTUcdZ7oj5BcNRvWcDDYujrAuONL8eNVgQQmlWiBq6g/exec";
 
-  // Packages data + images (gallery.json will override images if present)
-  const PACKAGES = [
-    { id:'web', name:'Web App', price:5000, short:'HTML, CSS, JavaScript frontend; PHP + MySQL backend.', images:[], desc:'A web application includes a frontend (HTML/CSS/JS) and a backend (PHP & MySQL). Users interact via a website.' },
-    { id:'desktop', name:'Desktop (VB/C#)', price:3000, short:'Windows desktop app using VB or C#', images:[], desc:'Windows desktop application using Visual Basic or C#.' },
-    { id:'chatbot', name:'Chatbot', price:3000, short:'Conversational flows for websites or platforms', images:[], desc:'A chatbot for FAQs, lead capture, or guided assistance.' },
-    { id:'mobile', name:'Mobile App (coming soon)', price:7000, short:'Android apps (Java/Kotlin) — coming soon', images:[], desc:'Not available yet.' },
-    { id:'ai', name:'AI Integration (coming soon)', price:7000, short:'AI features — coming soon', images:[], desc:'Not available yet.' }
-  ];
+    // Tile selection
+    let selectedDoc = "";
+    document.querySelectorAll(".tile").forEach(tile => {
+      tile.addEventListener("click", () => {
+        document.querySelectorAll(".tile").forEach(t => t.classList.remove("active"));
+        tile.classList.add("active");
+        selectedDoc = tile.dataset.value;
+      });
+    });
 
-  // UI refs
-  const pkgOptionsEl = document.getElementById('pkgOptions');
-  const packageListEl = document.getElementById('packageList');
-  const packageDescEl = document.getElementById('packageDesc');
-  const galleryMain = document.getElementById('galleryMain');
-  const thumbsEl = document.getElementById('thumbs');
-  const selText = document.getElementById('selText');
-  const totalEl = document.getElementById('total');
-  const sealPercentEl = document.getElementById('sealPercent');
-  const wave1 = document.getElementById('wave1');
-  const wave2 = document.getElementById('wave2');
-  const waveGroup = document.getElementById('waveGroup');
-  const submitBtn = document.getElementById('submitBtn');
-  const fullNotice = document.getElementById('fullNotice');
+    // Submit form
+    document.getElementById("orderForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const phone = document.getElementById("phone").value.trim();
+      const projectType = document.getElementById("projectType").value;
+      const title = document.getElementById("title").value.trim();
+      const details = document.getElementById("details").value.trim();
 
-  // state
-  let galleries = {}; // loads from assets/gallery.json
-  let selectedPackage = null;
-  let currentPercent = DEFAULT_MARKETING_PERCENT;
+      if (!selectedDoc) return alert("Please select documentation option.");
 
-  // init: render package buttons & list
-  function renderPackages() {
-    packageListEl.innerHTML = '';
-    pkgOptionsEl.innerHTML = '';
-    PACKAGES.forEach(p=>{
-      const left = document.createElement('div');
-      left.className = 'option-btn' + (p.images.length===0 ? ' disabled' : '');
-      left.dataset.id = p.id;
-      left.innerHTML = `<div><strong>${p.name}</strong><div class="pkg-desc">${p.short}</div></div><div class="price">${p.price.toLocaleString()} KSH</div>`;
-      packageListEl.appendChild(left);
+      const payload = new URLSearchParams({
+        action: "submit",
+        phone,
+        projectType,
+        title,
+        details,
+        documentation: selectedDoc
+      });
 
-      const right = document.createElement('div');
-      right.className = 'option-btn' + (p.images.length===0 ? ' disabled' : '');
-      right.dataset.id = p.id; right.style.marginBottom='8px';
-      right.innerHTML = `<div style="font-weight:600">${p.name}</div><div class="price">${p.price.toLocaleString()} KSH</div>`;
-      pkgOptionsEl.appendChild(right);
-
-      [left, right].forEach(el=>{
-        el.addEventListener('click', ()=> {
-          if (el.classList.contains('disabled')) return;
-          document.querySelectorAll('.option-btn').forEach(o=>o.classList.remove('selected'));
-          el.classList.add('selected');
-          // sync visual on both lists
-          document.querySelectorAll('#pkgOptions .option-btn, #packageList .option-btn').forEach(o=>{ if(o.dataset.id===el.dataset.id) o.classList.add('selected'); else o.classList.remove('selected'); });
-          setSelectedPackage(el.dataset.id);
+      try {
+        const res = await fetch(SCRIPT_URL, {
+          method: "POST",
+          body: payload
         });
-      });
-    });
-    // select first available package by default
-    const firstAvailable = PACKAGES.find(p=>p.images || true);
-    setSelectedPackage(firstAvailable.id);
-  }
-
-  function setSelectedPackage(id) {
-    selectedPackage = PACKAGES.find(x=>x.id===id);
-    packageDescEl.textContent = selectedPackage ? selectedPackage.desc : 'Select a package to see a description.';
-    updateSummary();
-    updateGallery();
-  }
-
-  // gallery.json loader
-  async function loadGalleryJson() {
-    try {
-      const res = await fetch('assets/gallery.json');
-      if (!res.ok) return;
-      const data = await res.json();
-      galleries = data;
-      // override PACKAGES' images if present
-      PACKAGES.forEach(p=>{
-        if (galleries[p.id] && galleries[p.id].length) {
-          p.images = galleries[p.id].map(x=>x.src);
-          p.captions = galleries[p.id].map(x=>x.caption||'');
-        }
-      });
-      renderPackages(); // re-render so images exist
-      updateGallery();
-    } catch (err) {
-      console.warn('No gallery.json or failed to load:', err);
-    }
-  }
-
-  function updateGallery(){
-    thumbsEl.innerHTML = '';
-    if (!selectedPackage || !selectedPackage.images || selectedPackage.images.length === 0) {
-      galleryMain.innerHTML = '<div class="muted">No samples available for this package.</div>';
-      return;
-    }
-    const first = selectedPackage.images[0];
-    galleryMain.innerHTML = `<img src="${first}" alt="sample">`;
-    selectedPackage.images.forEach((src, i) => {
-      const img = document.createElement('img');
-      img.src = src; if (i === 0) img.classList.add('active');
-      img.addEventListener('click', ()=> {
-        galleryMain.innerHTML = `<img src="${src}" alt="sample">`;
-        thumbsEl.querySelectorAll('img').forEach(im=>im.classList.remove('active'));
-        img.classList.add('active');
-      });
-      thumbsEl.appendChild(img);
-    });
-  }
-
-  // summary
-  function getDocChoice(){
-    if (document.getElementById('docOnly').classList.contains('selected')) return 'only';
-    if (document.getElementById('docWith').classList.contains('selected')) return 'with';
-    return 'without';
-  }
-  function updateSummary(){
-    const doc = getDocChoice();
-    let total = 0; let parts = [];
-    if (selectedPackage) { total += selectedPackage.price; parts.push(selectedPackage.name + ` (${selectedPackage.price.toLocaleString()} KSH)`); }
-    if (doc === 'only') { total = 2000; parts = ['Documentation only (2,000 KSH)']; }
-    else if (doc === 'with') { total += 2000; parts.push('Documentation (2,000 KSH)'); }
-    selText.textContent = parts.length ? parts.join(' + ') : 'No selection';
-    totalEl.textContent = total ? `${total.toLocaleString()} KSH` : '0 KSH';
-  }
-
-  // doc toggles
-  ['docWith','docWithout','docOnly'].forEach(id => {
-    const el = document.getElementById(id);
-    el.addEventListener('click', ()=> {
-      document.getElementById('docWith').classList.remove('selected');
-      document.getElementById('docWithout').classList.remove('selected');
-      document.getElementById('docOnly').classList.remove('selected');
-      el.classList.add('selected');
-      updateSummary();
-    });
-  });
-
-  // PHONE normalization
-  function normalizePhone(cc, phone) {
-    phone = phone.replace(/\D+/g,'');
-    if (phone.startsWith('0')) phone = phone.substring(1);
-    if (phone.length > 9 && phone.startsWith(cc.replace('+',''))) phone = phone.substring(cc.replace('+','').length);
-    return cc.replace('+','') + phone;
-  }
-
-  // seal rendering (simple wave math)
-  function renderSeal(percent) {
-    currentPercent = Math.max(0, Math.min(100, Math.round(percent)));
-    sealPercentEl.textContent = currentPercent + '%';
-    // compute Y offset for wave: 0% -> bottom filled 0, 100% -> filled full
-    const fillRatio = currentPercent / 100;
-    const waveHeight = 80; // px approx because viewBox 100
-    const translateY = (1 - fillRatio) * 60; // adjust
-    // create sine wave paths
-    const wavePath1 = wavePath(0.9, 12, 0, translateY);
-    const wavePath2 = wavePath(0.95, 10, 20, translateY + 4);
-    wave1.setAttribute('d', wavePath1);
-    wave2.setAttribute('d', wavePath2);
-    // animate horizontal movement using CSS transforms
-    waveGroup.style.transition = 'transform 800ms linear';
-    // small horizontal oscillation
-    waveGroup.style.transform = `translateX(${(Date.now()%1000 - 500)/100}px) translateY(${translateY}px)`;
-  }
-
-  // generate SVG wave path (simple approximation)
-  function wavePath(amplitudeScale, wavelength, phase, translateY) {
-    // create basic path across x from -10 to 110
-    let path = `M -10 ${110}`;
-    // vertical baseline at bottom, wave above it
-    const steps = 18;
-    for (let i = 0; i <= steps; i++) {
-      const x = -10 + (120 / steps) * i;
-      const theta = (i/steps) * Math.PI * 2 * (120/wavelength) + (phase/10);
-      const y = 50 + Math.sin(theta) * amplitudeScale * 6 - translateY;
-      path += ` L ${x} ${y}`;
-    }
-    path += ` L 120 120 L -10 120 Z`;
-    return path;
-  }
-
-  // fetch status (via your PHP proxy)
-  async function fetchStatusAndUpdate() {
-    try {
-      // show default marketing percent initially
-      renderSeal(DEFAULT_MARKETING_PERCENT);
-
-      const res = await fetch(STATUS_ENDPOINT, { method: 'GET', mode: 'cors', credentials: 'omit', header:{'Content-Type': 'application/json'} });
-      if (!res.ok) {
-        console.warn('Status fetch failed:', res.status);
-        return;
-      }
-      const data = await res.json();
-      if (data && data.success) {
-        renderSeal(data.percent || Math.round((data.ongoing || 0) / MAX_PROJECTS * 100));
-        if ((data.ongoing || 0) >= MAX_PROJECTS) {
-          // lock form
-          document.getElementById('orderForm').style.display = 'none';
-          fullNotice.style.display = 'block';
+        const data = await res.json();
+        if (data.result === "success") {
+          alert("Submission received! We’ll contact you on WhatsApp once reviewed.");
+          e.target.reset();
         } else {
-          document.getElementById('orderForm').style.display = '';
-          fullNotice.style.display = 'none';
+          alert("Error: " + (data.error || "Please try again later."));
         }
-      } else {
-        // API returned not success: still show marketing percent
-        renderSeal(DEFAULT_MARKETING_PERCENT);
+      } catch (err) {
+        alert("Submission failed. Please check your connection.");
+        console.error(err);
       }
-    } catch (err) {
-      console.warn('Status error', err);
-      renderSeal(DEFAULT_MARKETING_PERCENT);
+    });
+
+    // Seal animation
+    function renderSeal(percent) {
+      const water = document.getElementById("water");
+      const text = document.getElementById("percentText");
+      water.style.height = percent + "%";
+      text.textContent = percent + "%";
     }
-  }
 
-  // submit normal order
-  async function handleSubmit(e) {
-    e.preventDefault();
-    if (!selectedPackage) { alert('Please select a package.'); return false; }
-    const phoneRaw = document.getElementById('phone').value.trim();
-    const cc = document.getElementById('cc').value;
-    const title = document.getElementById('title').value.trim();
-    const details = document.getElementById('details').value.trim();
-    if (!phoneRaw) { alert('Enter your WhatsApp number.'); return false; }
+    // Fetch status
+    async function fetchStatus() {
+      try {
+        const res = await fetch(SCRIPT_URL + "?action=status");
+        const data = await res.json();
+        if (data.success && data.status) {
+          const { totalProjects, ongoing } = data.status;
+          const percent = Math.round((ongoing / totalProjects) * 100);
+          renderSeal(percent);
 
-    const phone = normalizePhone(cc, phoneRaw);
-    const doc = getDocChoice();
-    let total = 0; let parts = [];
-    if (doc === 'only') { total = 2000; parts = ['Documentation only']; }
-    else { total += selectedPackage.price; parts.push(selectedPackage.name); if (doc === 'with') { total += 2000; parts.push('Documentation'); } }
-
-    const payload = {
-      phone_number: phone,
-      project_type: parts.join(' + '),
-      total_amount: total,
-      deposit_paid: 'No',
-      completed_documentation: 'No',
-      completed_project: 'No',
-      delivered_and_cleared: 'No',
-      title: title || '',
-      details: details || ''
-    };
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
-
-    try {
-      const res = await fetch(SUBMIT_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
-      if (data && data.success) {
-        alert('Request saved. A DevOrbit team member will contact you on WhatsApp shortly.');
-        resetForm();
-        // refresh status
-        setTimeout(fetchStatusAndUpdate, 1000);
-      } else {
-        alert('Failed to submit: ' + (data && data.error ? data.error : 'Unknown error'));
+          if (ongoing >= totalProjects) {
+            document.getElementById("orderForm").style.display = "none";
+            document.getElementById("fullNotice").style.display = "block";
+          }
+        }
+      } catch (err) {
+        console.warn("Status fetch failed", err);
       }
-    } catch (err) {
-      console.error('Submit error', err);
-      alert('Submission failed — check console or contact the DevOrbit team.');
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit request';
     }
-    return false;
-  }
 
-  // special request handler (when slots full)
-  async function handleSpecial(e) {
-    e.preventDefault();
-    const phoneRaw = document.getElementById('specialPhone').value.trim();
-    const cc = '+254';
-    const msg = document.getElementById('specialMsg').value.trim();
-    if (!phoneRaw) { alert('Enter your WhatsApp number.'); return false; }
-    const phone = normalizePhone(cc, phoneRaw);
-
-    const payload = {
-      phone_number: phone,
-      project_type: 'Special Request',
-      total_amount: 0,
-      deposit_paid: 'No',
-      completed_documentation: 'No',
-      completed_project: 'No',
-      delivered_and_cleared: 'No',
-      title: 'Special request',
-      details: msg
-    };
-
-    try {
-      const res = await fetch(SUBMIT_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
-      if (data && data.success) {
-        alert('Special request saved. We will contact you when a slot opens.');
-        document.getElementById('specialForm').reset();
-      } else {
-        alert('Failed to send special request: ' + (data && data.error ? data.error : 'Unknown error'));
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Failed to send special request.');
-    }
-    return false;
-  }
-
-  function resetForm() {
-    document.getElementById('orderForm').reset();
-    document.querySelectorAll('.option-btn').forEach(o=>o.classList.remove('selected'));
-    setSelectedPackage('web');
-    document.getElementById('cc').value = '+254';
-    document.getElementById('phone').value = '';
-    document.getElementById('title').value = '';
-    document.getElementById('details').value = '';
-    document.getElementById('docWithout').classList.add('selected');
-    updateSummary();
-  }
-
-  // startup
-  (function init(){
-    renderPackages();
-    loadGalleryJson();
-    updateGallery();
-    updateSummary();
-    fetchStatusAndUpdate();
-    // periodic refresh of status every 30s (optional)
-    setInterval(fetchStatusAndUpdate, 30000);
-  })();
+    fetchStatus();
   </script>
 </body>
 </html>
-
-
-
-
