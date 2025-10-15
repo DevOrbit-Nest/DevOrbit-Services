@@ -474,19 +474,40 @@
   // submit normal order
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!selectedPackage) { alert('Please select a package.'); return false; }
+  
+    if (!selectedPackage) {
+      alert('Please select a package.');
+      return false;
+    }
+  
     const phoneRaw = document.getElementById('phone').value.trim();
     const cc = document.getElementById('cc').value;
     const title = document.getElementById('title').value.trim();
     const details = document.getElementById('details').value.trim();
-    if (!phoneRaw) { alert('Enter your WhatsApp number.'); return false; }
-
+  
+    if (!phoneRaw) {
+      alert('Enter your WhatsApp number.');
+      return false;
+    }
+  
     const phone = normalizePhone(cc, phoneRaw);
     const doc = getDocChoice();
-    let total = 0; let parts = [];
-    if (doc === 'only') { total = 2000; parts = ['Documentation only']; }
-    else { total += selectedPackage.price; parts.push(selectedPackage.name); if (doc === 'with') { total += 2000; parts.push('Documentation'); } }
-
+  
+    let total = 0;
+    let parts = [];
+  
+    if (doc === 'only') {
+      total = 2000;
+      parts = ['Documentation only'];
+    } else {
+      total += selectedPackage.price;
+      parts.push(selectedPackage.name);
+      if (doc === 'with') {
+        total += 2000;
+        parts.push('Documentation');
+      }
+    }
+  
     const payload = {
       phone_number: phone,
       project_type: parts.join(' + '),
@@ -498,6 +519,27 @@
       title: title || '',
       details: details || ''
     };
+  
+    try {
+      const res = await fetch(SUBMIT_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+  
+      if (!res.ok) throw new Error('Network response was not ok');
+  
+      const json = await res.json();
+      console.log('Submission successful:', json);
+      alert('Request submitted successfully!');
+      resetForm(); // Optional: reset form after success
+    } catch (err) {
+      console.error('Submit error:', err);
+      alert('There was an error submitting your request. Please try again.');
+    }
+  
+    return false;
+  }
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
@@ -603,6 +645,7 @@
   </script>
 </body>
 </html>
+
 
 
 
