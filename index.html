@@ -261,8 +261,8 @@
   // Packages data + images (gallery.json will override images if present)
   const PACKAGES = [
     { id:'web', name:'Web App', price:5000, short:'HTML, CSS, JavaScript frontend; PHP + MySQL backend.', images:[], desc:'A web application includes a frontend (HTML/CSS/JS) and a backend (PHP & MySQL). Users interact via a website.' },
-    { id:'desktop', name:'Desktop (VB/C#)', price:3500, short:'Windows desktop app using VB or C#', images:[], desc:'Windows desktop application using Visual Basic or C#.' },
-    { id:'chatbot', name:'Chatbot', price:3500, short:'Conversational flows for websites or platforms', images:[], desc:'A chatbot for FAQs, lead capture, or guided assistance.' },
+    { id:'desktop', name:'Desktop (VB/C#)', price:3000, short:'Windows desktop app using VB or C#', images:[], desc:'Windows desktop application using Visual Basic or C#.' },
+    { id:'chatbot', name:'Chatbot', price:3000, short:'Conversational flows for websites or platforms', images:[], desc:'A chatbot for FAQs, lead capture, or guided assistance.' },
     { id:'mobile', name:'Mobile App (coming soon)', price:7000, short:'Android apps (Java/Kotlin) — coming soon', images:[], desc:'Not available yet.' },
     { id:'ai', name:'AI Integration (coming soon)', price:7000, short:'AI features — coming soon', images:[], desc:'Not available yet.' }
   ];
@@ -472,38 +472,42 @@
   }
 
   // submit normal order
-  const phone = normalizePhone(cc, phoneRaw);
-  const doc = getDocChoice();
-  let total = 0; let parts = [];
-  if (doc === 'only') { total = 2000; parts = ['Documentation only']; }
-  else { total += selectedPackage.price; parts.push(selectedPackage.name); if (doc === 'with') { total += 2000; parts.push('Documentation'); } }
-  
-  const payload = {
-    phone_number: phone,
-    project_type: parts.join(' + '),
-    total_amount: total,
-    deposit_paid: 'No',
-    completed_documentation: 'No',
-    completed_project: 'No',
-    delivered_and_cleared: 'No',
-    title: title || '',
-    details: details || ''
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!selectedPackage) { alert('Please select a package.'); return false; }
+    const phoneRaw = document.getElementById('phone').value.trim();
+    const cc = document.getElementById('cc').value;
+    const title = document.getElementById('title').value.trim();
+    const details = document.getElementById('details').value.trim();
+    if (!phoneRaw) { alert('Enter your WhatsApp number.'); return false; }
+
+    const phone = normalizePhone(cc, phoneRaw);
+    const doc = getDocChoice();
+    let total = 0; let parts = [];
+    if (doc === 'only') { total = 2000; parts = ['Documentation only']; }
+    else { total += selectedPackage.price; parts.push(selectedPackage.name); if (doc === 'with') { total += 2000; parts.push('Documentation'); } }
+
+    const payload = {
+      phone_number: phone,
+      project_type: parts.join(' + '),
+      total_amount: total,
+      deposit_paid: 'No',
+      completed_documentation: 'No',
+      completed_project: 'No',
+      delivered_and_cleared: 'No',
+      title: title || '',
+      details: details || ''
     };
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
 
     try {
-      const formData = new URLSearchParams();
-      for (const key in payload) {
-        formData.append(key, payload[key]);
-      }
-      
       const res = await fetch(SUBMIT_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: formData.toString()
-      }); 
+        body: JSON.stringify(payload)
+      });
       const data = await res.json();
       if (data && data.success) {
         alert('Request saved. A DevOrbit team member will contact you on WhatsApp shortly.');
@@ -515,7 +519,7 @@
       }
     } catch (err) {
       console.error('Submit error', err);
-      alert('Submission failed — contact the DevOrbit team.');
+      alert('Submission failed — check console or contact the DevOrbit team.');
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Submit request';
@@ -545,15 +549,10 @@
     };
 
     try {
-      const formData = new URLSearchParams();
-      for (const key in payload) {
-        formData.append(key, payload[key]);
-      }
-      
       const res = await fetch(SUBMIT_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formData.toString()
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       });
       const data = await res.json();
       if (data && data.success) {
@@ -594,12 +593,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
