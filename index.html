@@ -537,7 +537,7 @@
     const phone = normalizePhone(cc, phoneRaw);
 
     const payload = {
-      phone_number: phone,
+      specialPhone: phone,
       project_type: 'Special Request',
       total_amount: 0,
       deposit_paid: 'No',
@@ -545,7 +545,7 @@
       completed_project: 'No',
       delivered_and_cleared: 'No',
       title: 'Special request',
-      details: msg
+      specialMsg: msg
     };
 
     try {
@@ -593,4 +593,5 @@
   </script>
 </body>
 </html>
+
 
