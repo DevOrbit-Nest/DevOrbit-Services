@@ -503,10 +503,15 @@
     submitBtn.textContent = 'Sending...';
 
     try {
+      const formData = new URLSearchParams();
+      for (const key in payload) {
+        formData.append(key, payload[key]);
+      }
+      
       const res = await fetch(SUBMIT_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formData.toString()
       });
       const data = await res.json();
       if (data && data.success) {
@@ -549,10 +554,15 @@
     };
 
     try {
+      const formData = new URLSearchParams();
+      for (const key in payload) {
+        formData.append(key, payload[key]);
+      }
+      
       const res = await fetch(SUBMIT_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formData.toString()
       });
       const data = await res.json();
       if (data && data.success) {
@@ -593,3 +603,4 @@
   </script>
 </body>
 </html>
+
