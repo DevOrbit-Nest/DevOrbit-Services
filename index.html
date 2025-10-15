@@ -490,13 +490,13 @@
     const payload = {
       phone_number: phone,
       project_type: parts.join(' + '),
+      title: title || '',
+      details: details || '',
       total_amount: total,
       deposit_paid: 'No',
       completed_documentation: 'No',
       completed_project: 'No',
-      delivered_and_cleared: 'No',
-      title: title || '',
-      details: details || ''
+      delivered_and_cleared: 'No'
     };
 
     submitBtn.disabled = true;
@@ -593,6 +593,7 @@
   </script>
 </body>
 </html>
+
 
 
 
