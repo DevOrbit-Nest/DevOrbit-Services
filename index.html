@@ -530,34 +530,41 @@
   // special request handler (when slots full)
   async function handleSpecial(e) {
     e.preventDefault();
+  
     const phoneRaw = document.getElementById('specialPhone').value.trim();
     const cc = '+254';
     const msg = document.getElementById('specialMsg').value.trim();
-    if (!phoneRaw) { alert('Enter your WhatsApp number.'); return false; }
+  
+    if (!phoneRaw) {
+      alert('Enter your WhatsApp number.');
+      return false;
+    }
+  
     const phone = normalizePhone(cc, phoneRaw);
-
+  
     const payload = {
       specialPhone: phone,
       specialMsg: msg
     };
-
+  
     try {
       const res = await fetch(SUBMIT_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      const data = await res.json();
-      if (data && data.success) {
-        alert('Special request saved. We will contact you when a slot opens.');
-        document.getElementById('specialForm').reset();
-      } else {
-        alert('Failed to send special request: ' + (data && data.error ? data.error : 'Unknown error'));
-      }
+  
+      if (!res.ok) throw new Error('Network response was not ok');
+  
+      const json = await res.json();
+      console.log('Special request success:', json);
+      alert('Special request saved. We will contact you when a slot opens.');
+      document.getElementById('specialForm').reset();
     } catch (err) {
-      console.error(err);
-      alert('Failed to send special request.');
+      console.error('Special request error:', err);
+      alert('There was an error submitting your special request.');
     }
+  
     return false;
   }
 
@@ -586,6 +593,7 @@
   </script>
 </body>
 </html>
+
 
 
 
