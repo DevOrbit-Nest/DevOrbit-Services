@@ -510,8 +510,12 @@
       
       const res = await fetch(SUBMIT_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formData.toString()
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name.value,
+          email: form.email.value,
+          message: form.message.value
+        })
       });
       const data = await res.json();
       if (data && data.success) {
@@ -603,6 +607,7 @@
   </script>
 </body>
 </html>
+
 
 
 
