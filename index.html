@@ -511,12 +511,8 @@
       const res = await fetch(SUBMIT_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: form.name.value,
-          email: form.email.value,
-          message: form.message.value
-        })
-      });
+        body: formData.toString()
+      }); 
       const data = await res.json();
       if (data && data.success) {
         alert('Request saved. A DevOrbit team member will contact you on WhatsApp shortly.');
@@ -607,6 +603,7 @@
   </script>
 </body>
 </html>
+
 
 
 
