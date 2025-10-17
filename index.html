@@ -486,7 +486,6 @@ Index.html:
   async function fetchStatusAndUpdate() {
     try {
       // show default marketing percent initially
-      renderSeal(DEFAULT_MARKETING_PERCENT);
 
       const res = await fetch(STATUS_ENDPOINT, { method: 'GET', mode: 'cors', credentials: 'omit', header:{'Content-Type': 'application/json'} });
       if (!res.ok) {
@@ -495,7 +494,6 @@ Index.html:
       }
       const data = await res.json();
       if (data && data.success) {
-        renderSeal(data.percent || Math.round((data.ongoing || 0) / MAX_PROJECTS * 100));
         if ((data.ongoing || 0) >= MAX_PROJECTS) {
           // lock form
           document.getElementById('orderForm').style.display = 'none';
@@ -506,11 +504,9 @@ Index.html:
         }
       } else {
         // API returned not success: still show marketing percent
-        renderSeal(DEFAULT_MARKETING_PERCENT);
       }
     } catch (err) {
       console.warn('Status error', err);
-      renderSeal(DEFAULT_MARKETING_PERCENT);
     }
   }
 
@@ -636,3 +632,4 @@ Index.html:
   </script>
 </body>
 </html>
+
