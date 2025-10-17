@@ -1,3 +1,5 @@
+Index.html:
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -257,8 +259,6 @@
   const STATUS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwqelcCXQ3vvmdEU3BamEwoNAI9wXRvLVqap8vgoxgNQpyvM73CKNhqzE2j4CzUA__kcg/exec';
   const MAX_PROJECTS = 15; // keep in sync with Apps Script
   const DEFAULT_MARKETING_PERCENT = 75; 
-  let sealPercent = DEFAULT_MARKETING_PERCENT;
-  let wavePhase = 0;
 
   // Packages data + images (gallery.json will override images if present)
   const PACKAGES = [
@@ -406,26 +406,66 @@
     return cc.replace('+','') + phone;
   }
 
-  // seal rendering (simple wave math)
-   function animateSeal() {
+  let sealPercent = DEFAULT_MARKETING_PERCENT;
+  let wavePhase = 0;
+
+  // helper to build the wave path dynamically
+  function wavePath(amplitude, wavelength, phase, offsetY) {
+    let path = '';
+    for (let x = 0; x <= 100; x += 2) {
+      const y = 50 + Math.sin((x / wavelength + phase / 20) * Math.PI * 2) * amplitude * 10;
+      path += `${x === 0 ? 'M' : 'L'} ${x},${y + offsetY}`;
+    }
+    path += ' L 100,100 L 0,100 Z';
+    return path;
+  }
+
+  // animate the seal continuously
+  function animateSeal() {
     const displayPercent = sealPercent < 75 ? 75 : sealPercent;
     const currentPercent = Math.max(0, Math.min(100, Math.round(displayPercent)));
     sealPercentEl.textContent = currentPercent + '%';
-  
+
     const fillRatio = currentPercent / 100;
     const translateY = (1 - fillRatio) * 60;
-  
+
     const wavePath1 = wavePath(0.9, 12, wavePhase, translateY);
     const wavePath2 = wavePath(0.95, 10, wavePhase + 20, translateY + 4);
-  
+
     wave1.setAttribute('d', wavePath1);
     wave2.setAttribute('d', wavePath2);
-  
+
     waveGroup.style.transform = `translateX(${Math.sin(wavePhase / 10) * 2}px) translateY(${translateY}px)`;
-  
+
     wavePhase += 1;
     requestAnimationFrame(animateSeal);
   }
+
+  // fetch percentage dynamically from Apps Script endpoint
+  async function fetchStatus() {
+    try {
+      const res = await fetch(STATUS_ENDPOINT);
+      const data = await res.json();
+      // calculate percentage
+      sealPercent = data.percent || Math.round((data.ongoing || 0) / MAX_PROJECTS * 100);
+
+      // show special request form if full
+      if (sealPercent >= 100) {
+        document.getElementById('orderForm').style.display = 'none';
+        fullNotice.style.display = 'block';
+      } else {
+        document.getElementById('orderForm').style.display = 'block';
+        fullNotice.style.display = 'none';
+      }
+    } catch (err) {
+      console.error('Error fetching status:', err);
+    }
+  }
+
+  // initialize animation
+  fetchStatus().then(() => animateSeal());
+  setInterval(fetchStatus, 20000); // refresh every 20 seconds
+
   // generate SVG wave path (simple approximation)
   function wavePath(amplitudeScale, wavelength, phase, translateY) {
     // create basic path across x from -10 to 110
@@ -455,7 +495,7 @@
       }
       const data = await res.json();
       if (data && data.success) {
-        sealPercent = data.percent || Math.round((data.ongoing || 0) / MAX_PROJECTS * 100);
+        renderSeal(data.percent || Math.round((data.ongoing || 0) / MAX_PROJECTS * 100));
         if ((data.ongoing || 0) >= MAX_PROJECTS) {
           // lock form
           document.getElementById('orderForm').style.display = 'none';
@@ -593,14 +633,6 @@
     // periodic refresh of status every 30s (optional)
     setInterval(fetchStatusAndUpdate, 30000);
   })();
-    animateSeal();
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
